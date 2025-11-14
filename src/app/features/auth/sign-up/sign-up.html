@@ -1,0 +1,61 @@
+<div class="min-h-screen w-full flex items-center justify-center bg-gray-50 p-6">
+  <div class="w-full max-w-sm bg-white shadow rounded-xl p-6">
+    <h1 class="text-2xl font-semibold text-center mb-6">Sign Up</h1>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
+      <div *ngIf="error" class="text-red-700 bg-red-50 border border-red-200 rounded p-2 text-sm">
+        {{ error }}
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1" for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          formControlName="username"
+          class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="" />
+        <div class="text-red-600 text-xs mt-1" *ngIf="form.controls['username'].touched && form.controls['username'].invalid">
+          ต้องกรอกชื่อผู้ใช้ (อย่างน้อย 3 ตัวอักษร)
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1" for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="" />
+        <div class="text-red-600 text-xs mt-1" *ngIf="form.controls['password'].touched && form.controls['password'].invalid">
+          ต้องกรอกรหัสผ่าน (อย่างน้อย 6 ตัวอักษร)
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1" for="confirmPassword">Confirm Password</label>
+        <input
+          id="confirmPassword"
+          type="password"
+          formControlName="confirmPassword"
+          class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="" />
+        <div class="text-red-600 text-xs mt-1" *ngIf="(form.controls['confirmPassword'].touched && form.controls['confirmPassword'].invalid) || form.errors?.['passwordMismatch']">
+          กรุณายืนยันรหัสผ่านให้ตรงกัน
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="submitting"
+        class="w-full rounded-lg bg-green-600 hover:bg-green-700 text-white py-2 transition">
+        {{ submitting ? 'กำลังสมัครสมาชิก...' : 'สมัครสมาชิก' }}
+      </button>
+    </form>
+
+    <p class="text-center text-sm mt-4">
+      มีบัญชีแล้ว?
+      <a routerLink="/login" class="text-blue-600 hover:underline">เข้าสู่ระบบ</a>
+    </p>
+  </div>
+</div>
